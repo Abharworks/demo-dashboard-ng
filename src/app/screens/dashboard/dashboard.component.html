@@ -1,0 +1,200 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <p-tabView>
+                <p-tabPanel header="Agency">
+                    <h4 class="text-center">Agency Overview</h4>
+                    <p-table [value]="agencyOverviewData" [tableStyle]="{'min-width': '50rem'}">
+                        <ng-template pTemplate="header">
+                            <tr class="text-xs">
+                                <th colspan="7">Cost to Organization</th>
+                                <th colspan="12">Utilization</th>
+                                <th>Margin</th>
+
+
+                            </tr>
+                            <tr class="text-xs">
+                                <th>Annual Salary</th>
+                                <th>Workable Hours</th>
+                                <th>Building Allocation</th>
+                                <th>Expense Cost</th>
+                                <th>Monthly Wage</th>
+                                <th>Hourly Rate</th>
+                                <th>Fully Loaded Cost</th>
+                                <th>Hours in Month</th>
+                                <th>PTO Hours</th>
+                                <th>Workable Hours</th>
+                                <th>Tracked Hours</th>
+                                <th>Untracked Hours</th>
+                                <th>Tracked Percent</th>
+                                <th>Non-Billable Hours</th>
+                                <th>Non-Billable Percent</th>
+                                <th>Non-Billable Cost</th>
+                                <th>Billable Hours</th>
+                                <th>Billable Percent</th>
+                                <th>Billable Cost</th>
+                                <th>Billables Cost</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr class="text-xs">
+                                <td>{{item.annualSalary}}</td>
+                                <td>{{item.workableHrs}}</td>
+                                <td>{{item.buildingAllocation}}</td>
+                                <td>{{item.expenseCost}}</td>
+                                <td>{{item.monthlyWage}}</td>
+                                <td>{{item.hourlyRate}}</td>
+                                <td>{{item.fullyLoadedCost}}</td>
+                                <td>{{item.hoursInMonth}}</td>
+                                <td>{{item.PTOHours}}</td>
+                                <td>{{item.workableHours}}</td>
+                                <td>{{item.trackedHours}}</td>
+                                <td>{{item.untrackedHours}}</td>
+                                <td>{{item.trackedPercent}}</td>
+                                <td>{{item.nonBillableHours}}</td>
+                                <td>{{item.nonBillablePercent}}</td>
+                                <td>{{item.nonBillableCost}}</td>
+                                <td>{{item.billableHours}}</td>
+                                <td>{{item.billablePercent}}</td>
+                                <td>{{item.billableCost}}</td>
+                                <td>{{item.billablesCost}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+                <p-tabPanel header="Department">
+                    <ng-template pTemplate="content">
+                        <h4 class="text-center">Department Overview</h4>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="Individual">
+                    <ng-template pTemplate="content">
+                        <h4 class="text-center">
+                            Individual Overview
+                        </h4>
+                    </ng-template>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card text-center">
+            <h5>Capacity</h5>
+
+            <p-chart type="pie" [data]="dataCapacity" [options]="optionsCapacity" />
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card text-center">
+            <h5>Overtime</h5>
+
+            <p-chart type="pie" [data]="dataOvertime" [options]="optionsOvertime" />
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card text-center">
+            <h5>Due Dates</h5>
+
+            <p-chart type="bar" [data]="dataDueDates" [options]="optionsDueDates" />
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card text-center">
+            <h5>Billables</h5>
+
+            <p-chart type="bar" [data]="dataBillables" [options]="optionsBillables" />
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 xl:col-8">
+        <div class="card">
+            <div class="flex justify-content-between mb-2">
+                <h5>Non-Billable Project Summary</h5>
+                <p-dropdown [options]="clients" [(ngModel)]="selectedClient" placeholder="Select a Client" />
+            </div>
+            <div class="card">
+                <p-table [value]="nonBillableSummaryList" [tableStyle]="{'min-width': '50rem'}">
+                    <ng-template pTemplate="header">
+                        <tr class="text-xs">
+                            <th>Client</th>
+                            <th>Project</th>
+                            <th>Internal Cost</th>
+                            <th>Billable Amount</th>
+                            <th>Margin</th>
+                            <th>Worked Time</th>
+                            <th>Decimal Hours</th>
+                            <th>Time In Seconds</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr class="text-xs">
+                            <td>{{item.client}}</td>
+                            <td>{{item.project}}</td>
+                            <td>{{item.internalCost | currency: 'USD'}}</td>
+                            <td>{{item.billableAmount | currency: 'USD'}}</td>
+                            <td>{{item.margin | currency: 'USD'}}</td>
+                            <td>{{item.workedTime}}</td>
+                            <td>{{item.decimalHours}}</td>
+                            <td>{{item.timeInSeconds}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr>
+                            <td colspan="2" class="text-right">Totals</td>
+                            <td>{{calculateTheTotal('internalCost') | currency: 'USD'}}</td>
+                            <td>{{calculateTheTotal('billableAmount') | currency: 'USD'}}</td>
+                            <td>{{calculateTheTotal('margin') | currency: 'USD'}}</td>
+                            <td></td>
+                            <td>{{calculateTheTotal('decimalHours')}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-right bg-yellow-200">Total if all worked time changed at bill
+                                rate</td>
+                            <td></td>
+                            <td class="bg-yellow-200">{{29234.45 | currency: 'USD'}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 xl:col-4">
+        <div class="card text-center">
+            <div class="flex justify-content-between mb-2">
+                <h5>Project Margin</h5>
+                <p-dropdown [options]="projectMarginList" [(ngModel)]="selectedProjectMarginData"
+                    optionLabel="projectName" placeholder="Select a project" (onChange)="filterTheProject()" />
+            </div>
+            <p-table [value]="filteredProjectMarginData" [tableStyle]="{'min-width': '10rem'}">
+                <ng-template pTemplate="header">
+                    <tr class="text-xs">
+                        <th>Budget Hours</th>
+                        <th>Hours</th>
+                        <th>Cost</th>
+                        <th>Billable</th>
+                        <th>Margin</th>
+                        <!-- <th>project name</th> -->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr class="text-xs">
+                        <td>{{item.budgetHours}}</td>
+                        <td>{{item.hours}}</td>
+                        <td>{{item.cost}}</td>
+                        <td>{{item.billable}}</td>
+                        <td>{{item.margin}}</td>
+                        <!-- <td>{{item.projectName}}</td> -->
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+
+</div>
