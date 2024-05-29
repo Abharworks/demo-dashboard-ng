@@ -1,14 +1,5 @@
-# Data Dashboard Developer with Paymo API Integration
-
-We use a third-party project management application called Paymo, which has an API available. We would like to build a small dashboard that extends some of the capabilities of Paymo. The dashboard/application will require authentication, integration with Paymo's API, areas for manual data entry that doesn't come from Paymo, and user-access levels. We have a wireframe available for the dashboard view.
-
-Requirements:
-
--   Proficiency in API integration, particularly with Paymo's API
--   Experience in web application development, with a focus on data dashboard creation
--   Fluent in English, work in US time zone
-
-We'd like to host the production application on our LAMP server after it's completed.
+Live demo: 
+https://abharworks.com/demo/paymo/#/
 
 # abharworks
 
